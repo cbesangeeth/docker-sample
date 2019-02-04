@@ -1,0 +1,10 @@
+version: '3'
+services:
+  elastic:
+    image: nshou/elasticsearch-kibana
+    ports:
+      - "9200:9200"
+      - "5601:5601"
+    volumes:
+      - "./myElastic/data:/usr/share/elasticsearch/data/"
+      - "./myKibana:/kibana/"
