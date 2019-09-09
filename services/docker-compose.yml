@@ -26,5 +26,11 @@ services:
     networks:
       - db-network
 
+  activemq:
+    image: rmohr/activemq
+    ports:
+      - "8161:8161"
+      - "61613:61613"
+      
 networks:
   db-network:
