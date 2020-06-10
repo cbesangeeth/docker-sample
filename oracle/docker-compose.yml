@@ -1,0 +1,17 @@
+version: '3'
+services:
+  # redis:
+  #   image: redis
+  #   ports:
+  #     - "6379:6379"
+  oracle:
+    image: epiclabs/docker-oracle-xe-11g
+    ports:
+      - "1521:1521"
+    volumes:
+      - "./oracle-docker:/var/lib/mysql"
+    networks:
+      - db-network
+
+networks:
+  db-network:
