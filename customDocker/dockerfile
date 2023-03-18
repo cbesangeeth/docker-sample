@@ -1,0 +1,8 @@
+FROM alpine
+RUN apk update
+RUN apk update && apk add --no-cache gcc musl-dev git curl
+WORKDIR /usr/app
+RUN curl -LO https://github.com/nats-io/natscli/releases/download/v0.0.34/nats-0.0.34-amd64.deb -o /usr/app
+RUN apk add dpkg
+RUN dpkg -i --force-architecture nats-0.0.34-amd64.deb
+# RUN nats context add stage --server aha-stg-use1-nlb-ba33f9a88194f910.elb.us-east-1.amazonaws.com:4222 --description "stage NATS" --user stgadmin --password 123@admin

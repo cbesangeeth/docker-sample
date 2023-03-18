@@ -1,0 +1,43 @@
+services:
+
+  host_a:
+    image: nats:latest
+    command:
+      - "--debug"
+      - "--name=host_a"
+      - "--cluster_name=C1"
+      - "--cluster=nats://0.0.0.0:6222"
+      - "--http_port=8222"
+      - "--routes=nats-route://host_b:6222,nats-route://host_c:6222"
+      - "--js"
+    ports:
+      - 14222:4222
+      - 18222:8222
+
+  host_b:
+    image: nats:latest
+    command:
+      - "--debug"
+      - "--name=host_b"
+      - "--cluster_name=C1"
+      - "--cluster=nats://0.0.0.0:6222"
+      - "--http_port=8222"
+      - "--routes=nats-route://host_a:6222,nats-route://host_c:6222"
+      - "--js"
+    ports:
+      - 24222:4222
+      - 28222:8222
+
+  host_c:
+    image: nats:latest
+    command:
+      - "--debug"
+      - "--name=host_c"
+      - "--cluster_name=C1"
+      - "--cluster=nats://0.0.0.0:6222"
+      - "--http_port=8222"
+      - "--routes=nats-route://host_a:6222,nats-route://host_b:6222"
+      - "--js"
+    ports:
+      - 34222:4222
+      - 38222:8222
