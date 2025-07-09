@@ -1,0 +1,39 @@
+version: '3'
+services:
+  # elastic-old:
+  #   image: nshou/elasticsearch-kibana
+  #   ports:
+  #     - "9200:9200"
+  #     - "5601:5601"
+  #   volumes:
+  #     - "./myElastic/data:/usr/share/elasticsearch/data/"
+  #     - "./myKibana:/kibana/"
+
+  elasticsearchdb:
+    image: elasticsearch:8.8.0
+    container_name: elasticsearchdb
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - ELASTICSEARCH_USERNAME=your_username
+      - ELASTICSEARCH_PASSWORD=your_password
+    # volumes:
+      # - "./myElastic/data:/usr/share/elasticsearch/data/"
+    networks:
+      - es-stack-network
+
+  kibana-es-ui:
+    image: kibana:8.8.0
+    container_name: kibana-es-ui
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearchdb:9200
+    ports:
+      - 5601:5601
+    networks:
+      - es-stack-network
+
+networks:
+  es-stack-network:
+    name: es-stack-network
